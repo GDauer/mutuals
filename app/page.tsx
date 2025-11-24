@@ -1,10 +1,14 @@
 
 import Hero from "@/components/Hero";
 import InfoCards from "@/components/InfoCards";
+import MouseGradient from "@/components/MouseGradient";
+import MouseFollower from "@/components/MouseFollower";
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between">
+    <main className="flex min-h-screen flex-col items-center justify-between relative">
+      <MouseGradient />
+      <MouseFollower />
       <Hero />
       <InfoCards />
 

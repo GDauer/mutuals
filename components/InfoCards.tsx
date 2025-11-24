@@ -3,19 +3,19 @@ import { Info } from 'lucide-react';
 const cards = [
     {
         title: "Comunidade Primeiro",
-        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+        description: "Código fonte aberto e livre para uso e modificação. Todos podem usar, alterar e contribuir para o projeto."
     },
     {
         title: "Conexão Simples",
-        description: "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+        description: "Utilizamos arquitetura SPA. Sem loadings desnecessários ou processos desnecessários."
     },
     {
         title: "Foco em Privacidade",
-        description: "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."
+        description: "Toda a operação roda localmente, sem coleta de dados desnecessários ou sensíveis."
     },
     {
-        title: "Contruído com Antigravity",
-        description: "Contruído com Antigravity, o framework para construção de sites e aplicações web."
+        title: "Construído com Antigravity",
+        description: "Construído com Antigravity, o framework para construção de sites e aplicações web."
     }
 ];
 

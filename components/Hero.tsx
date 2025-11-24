@@ -6,9 +6,16 @@ import { useRef, useState } from 'react';
 
 import Image from 'next/image';
 import NonFollowersList from './NonFollowersList';
+import UploadInstructions from './UploadInstructions';
+import ErrorModal from './modals/ErrorModal';
+import { parseInstagramData, InstagramUser } from '@/lib/instagramParser';
+
+type UploadStep = 'initial' | 'instructions' | 'uploaded';
 
 export default function Hero() {
-  const [isConnected, setIsConnected] = useState(false);
+  const [uploadStep, setUploadStep] = useState<UploadStep>('initial');
+  const [users, setUsers] = useState<InstagramUser[]>([]);
+  const [error, setError] = useState<string | null>(null);
   const ref = useRef(null);
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -19,13 +26,32 @@ export default function Hero() {
   const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
 
   const handleConnect = () => {
-    setIsConnected(true);
+    setUploadStep('instructions');
+  };
+
+  const handleFileUpload = async (files: FileList) => {
+    try {
+      setError(null);
+      const parsedUsers = await parseInstagramData(files);
+      setUsers(parsedUsers);
+      setUploadStep('uploaded');
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Erro ao processar arquivo');
+      console.error('Upload error:', err);
+    }
+  };
+
+  const closeErrorModal = () => {
+    setError(null);
   };
 
   return (
     <div ref={ref} className="min-h-screen w-full flex flex-col items-center justify-center relative overflow-hidden py-20">
+      {/* Error Modal */}
+      {error && <ErrorModal error={error} onClose={closeErrorModal} />}
+
       <motion.div
-        style={{ y, opacity: isConnected ? 1 : opacity }}
+        style={{ y, opacity: uploadStep === 'initial' ? opacity : 1 }}
         className="flex flex-col items-center z-10 mb-8"
       >
         {/* Logo */}
@@ -40,7 +66,7 @@ export default function Hero() {
         </div>
       </motion.div>
 
-      {!isConnected ? (
+      {uploadStep === 'initial' && (
         <motion.div
           style={{ y, opacity }}
           className="flex flex-col items-center z-10"
@@ -57,13 +83,21 @@ export default function Hero() {
             </div>
           </button>
         </motion.div>
-      ) : (
+      )}
+
+      {uploadStep === 'instructions' && (
+        <div className="w-full z-10">
+          <UploadInstructions onFileUpload={handleFileUpload} />
+        </div>
+      )}
+
+      {uploadStep === 'uploaded' && (
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           className="w-full z-10"
         >
-          <NonFollowersList />
+          <NonFollowersList users={users} />
         </motion.div>
       )}
 
