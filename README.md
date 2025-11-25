@@ -3,7 +3,7 @@
 
   # Mutuals
   
-  **Descubra quem não te segue de volta no Instagram.**
+  **Discover who doesn't follow you back on Instagram.**
   
   [![Next.js](https://img.shields.io/badge/Next.js-black?style=for-the-badge&logo=next.js&logoColor=white)](https://nextjs.org/)
   [![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)](https://reactjs.org/)
@@ -17,120 +17,120 @@
 
 ## 📋 Table of Contents
 
-- [Sobre](#-sobre)
+- [About](#-about)
 - [Demo](#-demo)
-- [Funcionalidades](#-funcionalidades)
-- [Como Usar](#-como-usar)
-- [Instalação e Execução](#-instalação-e-execução)
-- [Tecnologias](#-tecnologias)
+- [Features](#-features)
+- [How to Use](#-how-to-use)
+- [Installation](#-installation)
+- [Technologies](#-technologies)
 
 ---
 
-## 🚀 Sobre
+## 🚀 About
 
-**Mutuals** é uma Single Page Application (SPA) moderna e segura que permite aos usuários do Instagram identificar facilmente quais contas eles seguem mas que não os seguem de volta. 
+**Mutuals** is a modern and secure Single Page Application (SPA) that allows Instagram users to easily identify accounts they follow but that do not follow them back.
 
-Diferente de outros aplicativos, o Mutuals foca na **privacidade e segurança**: todo o processamento de dados é feito **localmente** no navegador do usuário. Não há login via API do Instagram e nenhum dado é enviado para servidores externos.
+Unlike other applications, Mutuals focuses on **privacy and security**: all data processing is done **locally** in the user's browser. There is no login via Instagram API, and no data is sent to external servers.
 
 ---
 
 ## 🎥 Demo
 
 <div align="center">
-  <img src="public/demo.webp" alt="Demonstração do Mutuals" width="100%" />
+  <img src="public/demo.webp" alt="Mutuals Demo" width="100%" />
 </div>
 
 ---
 
-## ✨ Funcionalidades
+## ✨ Features
 
-- **Processamento Local**: Análise de dados feita inteiramente no navegador.
-- **Upload de Dados**: Suporte para upload dos arquivos JSON oficiais do Instagram (`following.json` e `followers_1.json`).
-- **Lista de Não-Seguidores**: Visualização clara de quem não te segue de volta.
-- **Cards Interativos**: Links diretos para os perfis no Instagram.
-- **Gerenciamento de Lista**: Marque usuários como removidos ("Delete") localmente para organizar sua limpeza.
-- **Interface Moderna**: Design responsivo com animações fluidas, modo escuro e efeitos visuais de mouse.
-- **Privacidade Total**: Seus dados nunca saem do seu dispositivo.
-
----
-
-## 📖 Como Usar
-
-1. **Exporte seus dados do Instagram**:
-   - Vá em "Sua atividade" > "Baixar suas informações".
-   - Selecione "Baixar ou transferir informações".
-   - Escolha "Algumas de suas informações" e selecione "Seguidores e seguindo".
-   - Escolha "Baixar para o dispositivo".
-   - **Importante**: Selecione o formato **JSON**.
-
-2. **Faça o Upload**:
-   - No Mutuals, clique em "Conectar com o Instagram".
-   - Arraste e solte os arquivos `following.json` e `followers_1.json` (ou o ZIP contendo eles).
-
-3. **Gerencie**:
-   - Veja a lista de quem não te segue de volta.
-   - Clique nos cards para abrir o perfil e deixar de seguir manualmente no Instagram.
-   - Clique em "Delete" no app para remover o usuário da lista visual.
+- **Local Processing**: Data analysis performed entirely in the browser.
+- **Data Upload**: Support for uploading official Instagram JSON files (`following.json` and `followers_1.json`).
+- **Non-Followers List**: Clear visualization of who doesn't follow you back.
+- **Interactive Cards**: Direct links to Instagram profiles.
+- **List Management**: Mark users as removed ("Delete") locally to organize your cleanup.
+- **Modern Interface**: Responsive design with fluid animations, dark mode, and mouse visual effects.
+- **Total Privacy**: Your data never leaves your device.
 
 ---
 
-## 💻 Instalação e Execução
+## 📖 How to Use
 
-Para rodar o projeto localmente, siga os passos abaixo:
+1. **Export your Instagram data**:
+   - Go to "Your activity" > "Download your information".
+   - Select "Download or transfer information".
+   - Choose "Some of your information" and select "Followers and following".
+   - Choose "Download to device".
+   - **Important**: Select **JSON** format.
 
-### Pré-requisitos
+2. **Upload**:
+   - In Mutuals, click "Connect with Instagram".
+   - Drag and drop the `following.json` and `followers_1.json` files (or the ZIP containing them).
 
-- Node.js (versão 18 ou superior)
-- npm, yarn, pnpm ou bun
+3. **Manage**:
+   - See the list of users who don't follow you back.
+   - Click on cards to open the profile and unfollow manually on Instagram.
+   - Click "Delete" in the app to remove the user from the visual list.
 
-### Passo a Passo
+---
 
-1. **Clone o repositório**
+## 💻 Installation
+
+To run the project locally, follow the steps below:
+
+### Prerequisites
+
+- Node.js (version 18 or higher)
+- npm, yarn, pnpm, or bun
+
+### Step by Step
+
+1. **Clone the repository**
 
 ```bash
-git clone https://github.com/seu-usuario/mutuals.git
+git clone https://github.com/your-username/mutuals.git
 cd mutuals
 ```
 
-2. **Instale as dependências**
+2. **Install dependencies**
 
 ```bash
 npm install
-# ou
+# or
 yarn install
-# ou
+# or
 pnpm install
 ```
 
-3. **Rode o servidor de desenvolvimento**
+3. **Run the development server**
 
 ```bash
 npm run dev
-# ou
+# or
 yarn dev
-# ou
+# or
 pnpm dev
 ```
 
-4. **Acesse o projeto**
+4. **Access the project**
 
-Abra [http://localhost:3000](http://localhost:3000) no seu navegador para ver o resultado.
+Open [http://localhost:3000](http://localhost:3000) in your browser to see the result.
 
 ---
 
-## 🛠 Tecnologias
+## 🛠 Technologies
 
-O projeto foi construído utilizando as seguintes tecnologias:
+The project was built using the following technologies:
 
-- **[Next.js 14](https://nextjs.org/)**: Framework React para produção.
-- **[React](https://reactjs.org/)**: Biblioteca para construção de interfaces.
-- **[TypeScript](https://www.typescriptlang.org/)**: Superset JavaScript com tipagem estática.
-- **[Tailwind CSS](https://tailwindcss.com/)**: Framework CSS utilitário.
-- **[Framer Motion](https://www.framer.com/motion/)**: Biblioteca de animações para React.
-- **[Lucide React](https://lucide.dev/)**: Biblioteca de ícones.
+- **[Next.js 14](https://nextjs.org/)**: React framework for production.
+- **[React](https://reactjs.org/)**: Library for building user interfaces.
+- **[TypeScript](https://www.typescriptlang.org/)**: JavaScript superset with static typing.
+- **[Tailwind CSS](https://tailwindcss.com/)**: Utility-first CSS framework.
+- **[Framer Motion](https://www.framer.com/motion/)**: Animation library for React.
+- **[Lucide React](https://lucide.dev/)**: Icon library.
 
 ---
 
 <div align="center">
-  Feito com ❤️ por <a href="https://github.com/GDauer">GDauer</a>
+  Made with ❤️ by <a href="https://github.com/GDauer">GDauer</a>
 </div>

@@ -1,9 +1,10 @@
 'use client';
 
 import { useState } from 'react';
-import { motion } from 'framer-motion';
 import { InstagramUser } from '@/lib/instagramParser';
 import ConfirmationModal from './modals/ConfirmationModal';
+import SuccessState from './SuccessState';
+import UserCard from './UserCard';
 
 const ITEMS_PER_PAGE = 10;
 
@@ -55,12 +56,7 @@ export default function NonFollowersList({ users: initialUsers }: NonFollowersLi
     };
 
     if (activeUsers.length === 0) {
-        return (
-            <div className="text-center py-20">
-                <h2 className="text-2xl font-bold mb-4">Tudo pronto!</h2>
-                <p className="text-gray-500">Você removeu todos da lista ou não há não-seguidores.</p>
-            </div>
-        );
+        return <SuccessState />;
     }
 
     return (
@@ -99,41 +95,11 @@ export default function NonFollowersList({ users: initialUsers }: NonFollowersLi
             {/* Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4">
                 {currentUsers.map((user) => (
-                    <motion.div
+                    <UserCard
                         key={user.id}
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, scale: 0.9 }}
-                        className="flex items-center justify-between p-4 bg-white dark:bg-zinc-900 rounded-xl shadow-sm border border-gray-100 dark:border-zinc-800 hover:shadow-md transition-shadow"
-                    >
-                        <a
-                            href={`https://www.instagram.com/${user.username}`}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="flex items-center gap-4 flex-1 group"
-                        >
-                            <div className="w-12 h-12 rounded-full overflow-hidden bg-gray-100">
-                                <img
-                                    src={user.profilePic}
-                                    alt={user.name}
-                                    className="w-full h-full object-cover"
-                                />
-                            </div>
-                            <div>
-                                <h3 className="font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-500 via-pink-500 to-orange-500 group-hover:opacity-80 transition-opacity">
-                                    {user.name}
-                                </h3>
-                                <p className="text-sm text-gray-500">@{user.username}</p>
-                            </div>
-                        </a>
-
-                        <button
-                            onClick={() => handleUnfollowClick(user.id)}
-                            className="px-4 py-1.5 text-sm font-medium border border-gray-200 dark:border-zinc-700 rounded-full text-gray-700 dark:text-gray-300 hover:bg-red-500 hover:text-white hover:border-red-500 transition-all duration-200"
-                        >
-                            Delete
-                        </button>
-                    </motion.div>
+                        user={user}
+                        onDelete={handleUnfollowClick}
+                    />
                 ))}
             </div>
         </div>

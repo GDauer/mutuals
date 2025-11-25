@@ -1,8 +1,8 @@
 
 import Hero from "@/components/Hero";
 import InfoCards from "@/components/InfoCards";
-import MouseGradient from "@/components/MouseGradient";
-import MouseFollower from "@/components/MouseFollower";
+import MouseGradient from "@/components/mouse/MouseGradient";
+import MouseFollower from "@/components/mouse/MouseFollower";
 
 export default function Home() {
   return (
