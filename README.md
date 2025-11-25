@@ -1,7 +1,5 @@
 <div align="center">
   <img src="public/logo.png" alt="Mutuals Logo" width="200" />
-
-  # Mutuals
   
   **Discover who doesn't follow you back on Instagram.**
   
@@ -50,7 +48,7 @@ Unlike other applications, Mutuals focuses on **privacy and security**: all data
 - **Interactive Cards**: Direct links to Instagram profiles.
 - **List Management**: Mark users as removed ("Delete") locally to organize your cleanup.
 - **Modern Interface**: Responsive design with fluid animations, dark mode, and mouse visual effects.
-- **Total Privacy**: Your data never leaves your device.
+- **Total Privacy**: ✨ Your data never leaves your device. ✨
 
 ---
 
@@ -65,7 +63,7 @@ Unlike other applications, Mutuals focuses on **privacy and security**: all data
 
 2. **Upload**:
    - In Mutuals, click "Connect with Instagram".
-   - Drag and drop the `following.json` and `followers_1.json` files (or the ZIP containing them).
+   - Drag and drop the `following.json` and `followers_1.json` files.
 
 3. **Manage**:
    - See the list of users who don't follow you back.
