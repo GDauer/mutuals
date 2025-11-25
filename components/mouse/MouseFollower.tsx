@@ -1,113 +1,135 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef } from 'react';
+
+interface Particle {
+    x: number;
+    y: number;
+    vx: number;
+    vy: number;
+    size: number;
+    color: string;
+    baseX: number;
+    baseY: number;
+    density: number;
+}
 
 export default function MouseFollower() {
-    const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-    const [isVisible, setIsVisible] = useState(false);
-    const [isOverComponent, setIsOverComponent] = useState(false);
+    const canvasRef = useRef<HTMLCanvasElement>(null);
+    const mouseRef = useRef({ x: 0, y: 0 });
 
     useEffect(() => {
+        const canvas = canvasRef.current;
+        if (!canvas) return;
+
+        const ctx = canvas.getContext('2d');
+        if (!ctx) return;
+
+        let animationFrameId: number;
+        let particles: Particle[] = [];
+
+        const colors = [
+            'rgba(147, 51, 234, 0.5)', // Purple
+            'rgba(236, 72, 153, 0.5)', // Pink
+            'rgba(249, 115, 22, 0.5)', // Orange
+        ];
+
+        const init = () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            particles = [];
+
+            const numberOfParticles = (canvas.width * canvas.height) / 9000;
+
+            for (let i = 0; i < numberOfParticles; i++) {
+                const size = (Math.random() * 3) + 1;
+                const x = (Math.random() * ((canvas.width - size * 2) - (size * 2)) + size * 2);
+                const y = (Math.random() * ((canvas.height - size * 2) - (size * 2)) + size * 2);
+                const directionX = (Math.random() * 2) - 1;
+                const directionY = (Math.random() * 2) - 1;
+                const color = colors[Math.floor(Math.random() * colors.length)];
+
+                particles.push({
+                    x,
+                    y,
+                    vx: directionX,
+                    vy: directionY,
+                    size,
+                    color,
+                    baseX: x,
+                    baseY: y,
+                    density: (Math.random() * 30) + 1
+                });
+            }
+        };
+
+        const animate = () => {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            for (let i = 0; i < particles.length; i++) {
+                const p = particles[i];
+
+                // Mouse interaction
+                const dx = mouseRef.current.x - p.x;
+                const dy = mouseRef.current.y - p.y;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+                const forceDirectionX = dx / distance;
+                const forceDirectionY = dy / distance;
+                const maxDistance = 150;
+                const force = (maxDistance - distance) / maxDistance;
+                const directionX = forceDirectionX * force * p.density;
+                const directionY = forceDirectionY * force * p.density;
+
+                if (distance < maxDistance) {
+                    p.x -= directionX;
+                    p.y -= directionY;
+                } else {
+                    if (p.x !== p.baseX) {
+                        const dx = p.x - p.baseX;
+                        p.x -= dx / 10;
+                    }
+                    if (p.y !== p.baseY) {
+                        const dy = p.y - p.baseY;
+                        p.y -= dy / 10;
+                    }
+                }
+
+                // Draw
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                ctx.fillStyle = p.color;
+                ctx.fill();
+            }
+
+            animationFrameId = requestAnimationFrame(animate);
+        };
+
+        init();
+        animate();
+
+        const handleResize = () => {
+            init();
+        };
+
         const handleMouseMove = (e: MouseEvent) => {
-            setMousePosition({ x: e.clientX, y: e.clientY });
-            setIsVisible(true);
-
-            // Check if mouse is over an interactive element
-            const target = e.target as HTMLElement;
-            const isOverInteractive =
-                target.closest('button') ||
-                target.closest('a') ||
-                target.closest('input') ||
-                target.closest('[role="button"]') ||
-                target.closest('.bg-white') ||
-                target.closest('.bg-zinc-900') ||
-                target.closest('.rounded-2xl') ||
-                target.closest('.shadow-xl') ||
-                target.tagName === 'BUTTON' ||
-                target.tagName === 'A' ||
-                target.tagName === 'INPUT';
-
-            setIsOverComponent(!!isOverInteractive);
+            mouseRef.current = { x: e.clientX, y: e.clientY };
         };
 
-        const handleMouseLeave = () => {
-            setIsVisible(false);
-        };
-
+        window.addEventListener('resize', handleResize);
         window.addEventListener('mousemove', handleMouseMove);
-        document.addEventListener('mouseleave', handleMouseLeave);
 
         return () => {
+            window.removeEventListener('resize', handleResize);
             window.removeEventListener('mousemove', handleMouseMove);
-            document.removeEventListener('mouseleave', handleMouseLeave);
+            cancelAnimationFrame(animationFrameId);
         };
     }, []);
 
-    const shouldShow = isVisible && !isOverComponent;
-
     return (
-        <>
-            {/* Main cursor follower - large glow */}
-            <div
-                className="pointer-events-none fixed z-0 transition-opacity duration-300"
-                style={{
-                    left: `${mousePosition.x}px`,
-                    top: `${mousePosition.y}px`,
-                    opacity: shouldShow ? 1 : 0,
-                    transform: 'translate(-50%, -50%)',
-                }}
-            >
-                <div
-                    className="rounded-full"
-                    style={{
-                        width: '400px',
-                        height: '400px',
-                        background: 'radial-gradient(circle, rgba(147, 51, 234, 0.15) 0%, rgba(236, 72, 153, 0.1) 30%, rgba(249, 115, 22, 0.05) 60%, transparent 100%)',
-                        filter: 'blur(40px)',
-                    }}
-                />
-            </div>
-
-            {/* Secondary cursor - smaller, more intense */}
-            <div
-                className="pointer-events-none fixed z-0 transition-opacity duration-300"
-                style={{
-                    left: `${mousePosition.x}px`,
-                    top: `${mousePosition.y}px`,
-                    opacity: shouldShow ? 1 : 0,
-                    transform: 'translate(-50%, -50%)',
-                }}
-            >
-                <div
-                    className="rounded-full"
-                    style={{
-                        width: '150px',
-                        height: '150px',
-                        background: 'radial-gradient(circle, rgba(147, 51, 234, 0.3) 0%, rgba(236, 72, 153, 0.2) 50%, transparent 100%)',
-                        filter: 'blur(20px)',
-                    }}
-                />
-            </div>
-
-            {/* Tiny dot cursor */}
-            <div
-                className="pointer-events-none fixed z-0 transition-opacity duration-300"
-                style={{
-                    left: `${mousePosition.x}px`,
-                    top: `${mousePosition.y}px`,
-                    opacity: shouldShow ? 1 : 0,
-                    transform: 'translate(-50%, -50%)',
-                }}
-            >
-                <div
-                    className="rounded-full bg-gradient-to-r from-purple-400 to-pink-400"
-                    style={{
-                        width: '8px',
-                        height: '8px',
-                        boxShadow: '0 0 20px rgba(147, 51, 234, 0.8)',
-                    }}
-                />
-            </div>
-        </>
+        <canvas
+            ref={canvasRef}
+            className="pointer-events-none fixed inset-0 z-0"
+            style={{ background: 'transparent' }}
+        />
     );
 }
