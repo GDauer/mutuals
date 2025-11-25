@@ -47,7 +47,7 @@ Unlike other applications, Mutuals focuses on **privacy and security**: all data
 - **Non-Followers List**: Clear visualization of who doesn't follow you back.
 - **Interactive Cards**: Direct links to Instagram profiles.
 - **List Management**: Mark users as removed ("Delete") locally to organize your cleanup.
-- **Modern Interface**: Responsive design with fluid animations, dark mode, and mouse visual effects.
+- **Modern Interface**: Responsive design with fluid animations, and mouse visual effects.
 - **Total Privacy**: ✨ Your data never leaves your device. ✨
 
 ---
