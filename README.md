@@ -37,7 +37,7 @@ Unlike other applications, Mutuals focuses on **privacy and security**: all data
 ## 🎥 Demo
 
 <div align="center">
-  <img src="public/demo.gif" alt="Mutuals Demo" width="100%" />
+  <img src="public/demo.webp" alt="Mutuals Demo" width="100%" />
 </div>
 
 ---
