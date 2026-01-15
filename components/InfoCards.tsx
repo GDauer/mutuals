@@ -6,6 +6,10 @@ const cards = [
         description: "Código fonte aberto e livre para uso e modificação. Todos podem usar, alterar e contribuir para o projeto."
     },
     {
+        title: "Loremn Ipsum",
+        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam nec metus vel ante fringilla finibus."
+    },
+    {
         title: "Conexão Simples",
         description: "Utilizamos arquitetura SPA. Sem loadings desnecessários ou processos desnecessários."
     },
